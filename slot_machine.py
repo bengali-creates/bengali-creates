@@ -21,6 +21,22 @@ symbol_value = {
     "D": 2
 }
 
+#this is to check the winnings
+def check_winnings(columns,lines ,bet ,value):
+    winnings=0
+    winning_lines=[]
+    for line in range(lines):
+        symbol =columns[0][line]
+        for column in columns:
+            symbol_to_check=column[line]
+            if(symbol_to_check!=symbol):
+                break
+            else:
+                winnings= winnings + value[symbol]*bet
+                winning_lines.append(line+1)
+            
+    return winnings,winning_lines
+
 #this is the back logic of slot machine
 def get_slot_spin(rows,cols,symbols):
     all_symbols=[]
@@ -36,11 +52,19 @@ def get_slot_spin(rows,cols,symbols):
              values=random.choice(current_symbols)
              current_symbols.remove(values)
              column.append(values)
-        columns.append(column)
-        print (columns)
-    
+     
     return columns
-get_slot_spin(ROWS,COLS,symbol_count)
+
+#this is to print the slot machine
+def print_slots_machine(columns):
+    for row in range(len(columns[0])):
+        for i,column in enumerate(columns):
+            if i!= len(columns)-1:
+                print(column[row], end=" | ")
+            else:
+                print(column[row], end="")
+        print()
+
 
 #this is for dipositing money into the account
 def deposit():
@@ -77,3 +101,23 @@ def get_lines():
                 print("Invalid choice, try again.")
         except ValueError:
             print("Invalid choice, try again.")
+
+#puting all the shits together
+def spin(balance):
+    lines=get_lines()
+    while True:
+        bet = get_bet()
+        total_bet = bet*lines 
+        if total_bet>balance:
+            print("insufficient fund")
+        else:
+            break
+    
+    print(f"you are betting on lines {lines} and your total bet amount is {total_bet}")
+    slots = get_slot_spin(ROWS, COLS, symbol_count)
+    print_slots_machine(slots)
+    winnings, winning_lines = check_winnings(slots, lines, bet, symbol_value)
+    print(f"You won ${winnings}.")
+    print(f"You won on lines:", *winning_lines)
+    return winnings - total_bet
+
