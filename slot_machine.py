@@ -8,10 +8,10 @@ ROWS = 3
 COLS = 3
 
 symbol_count = {
-    "A": 2,
+    "A": 5,
     "B": 4,
     "C": 6,
-    "D": 8
+    "D": 7
 }
 
 symbol_value = {
@@ -21,21 +21,21 @@ symbol_value = {
     "D": 2
 }
 
-#this is to check the winnings
+# this is to check the winnings
 def check_winnings(columns,lines ,bet ,value):
     winnings=0
     winning_lines=[]
-    for line in range(lines):
-        symbol =columns[0][line]
-        for column in columns:
-            symbol_to_check=column[line]
-            if(symbol_to_check!=symbol):
-                break
+    for line in lines:
+         if all(len(lst) > line for lst in columns):
+            if columns[0][line] == columns[1][line] == columns[2][line]:
+                winnings= winnings + value[columns[0][line]]*bet
+                winning_lines.append(line+1)                    
             else:
-                winnings= winnings + value[symbol]*bet
-                winning_lines.append(line+1)
+                break
             
     return winnings,winning_lines
+
+
 
 #this is the back logic of slot machine
 def get_slot_spin(rows,cols,symbols):
@@ -43,7 +43,7 @@ def get_slot_spin(rows,cols,symbols):
     for symbols,symbols_count in symbols.items():
         for i in range(symbols_count):
             all_symbols.append(symbols)
-
+    
     columns=[]
     for i in range(cols):
         column=[]
@@ -52,7 +52,9 @@ def get_slot_spin(rows,cols,symbols):
              values=random.choice(current_symbols)
              current_symbols.remove(values)
              column.append(values)
-     
+
+        columns.append(column)
+    print(columns)
     return columns
 
 #this is to print the slot machine
@@ -92,22 +94,30 @@ def get_bet():
 
 #this is for betting on the lines
 def get_lines():
-    while True:
-        try:
-            lines = int(input(f"Enter the lines you want to bet form 1-{MAX_LINES}: "))
-            if 1<=lines <= MAX_LINES:
-                return lines
-            else:
+    bet_lines = []
+    line = int(input("Enter the number of lines: "))
+    
+    for i in range(line):
+        while True:
+            try:
+                lines = int(input(f"Enter the lines you want to bet from 1-{MAX_LINES}: "))
+                if 1 <= lines <= MAX_LINES:
+                    bet_lines.append(lines)
+                    print("Current bet lines:", bet_lines)
+                    break  # Exit the loop once a valid line is added
+                else:
+                    print("Invalid choice, try again.")
+            except ValueError:
                 print("Invalid choice, try again.")
-        except ValueError:
-            print("Invalid choice, try again.")
+                
+    return bet_lines
 
 #puting all the shits together
 def spin(balance):
     lines=get_lines()
     while True:
         bet = get_bet()
-        total_bet = bet*lines 
+        total_bet = bet*len(lines) 
         if total_bet>balance:
             print("insufficient fund")
         else:
@@ -121,3 +131,18 @@ def spin(balance):
     print(f"You won on lines:", *winning_lines)
     return winnings - total_bet
 
+
+#this is main 
+def main():
+    balance = deposit()
+    while True:
+        print(f"Current balance is ${balance}")
+        answer = input("Press enter to play (q to quit).")
+        if answer == "q":
+            break
+        balance += spin(balance)
+
+    print(f"You left with ${balance}")
+
+
+main()
