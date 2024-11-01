@@ -16,17 +16,29 @@ def number_of_racer():
         except ValueError:
             print("Enter a valid number, BITCH!!!!!!")
 
+def race(colors):
+    turtles=create_turtles(colors)
+    while True:
+        for racer in turtles:
+            move=random.randrange(1,20)
+            racer.forward(move)
+
+            x,y=racer.pos()
+            if y>=HEIGHT//2-10:
+                return colors[turtles.index(racer)]
+
+
 def create_turtles(colors):
     turtles=[]
     spacing= (WIDTH//(len(colors)+1))
-    for i,color in enumerate(colors):
+    for i,color in enumerate(colors,start=1):
         racer=t.Turtle()
         racer.color(color)
         racer.shape('turtle')
         racer.left(90)
         racer.penup()
-        racer.setpos(-WIDTH//2+(i*spacing),HEIGHT//2+20)
-        racer.pendown
+        racer.setpos(-WIDTH//2+(i*spacing),-HEIGHT//2+20)
+        racer.pendown()
         turtles.append(racer)
 
     return turtles
@@ -38,4 +50,10 @@ def turtel_screen():
 
 racer=number_of_racer()
 turtel_screen()
-time.sleep(10)
+
+random.shuffle(COLORS)
+colors=COLORS[:racer]
+
+winner=race(colors)
+print("The winner is: ",winner)
+time.sleep(5)
