@@ -11,6 +11,7 @@ def number_of_racer():
             racers=int(input("Enter the number of turtle you want to race from 2 to 10: "))
             if 2<=racers<=10:
                 return racers
+                break
             else:
                 print("Enter the valid number of turtle from 2 to 10: ")
         except ValueError:
@@ -50,12 +51,19 @@ def bet(colors):
     while True:
         try:
             bet=int(input("Enter the number of turtle you want to bet :"))
-            if 2<=bet<=len(colors):
-                return bet
+            if 1<=bet<=len(colors):
+                return bet-1
+                break
             else:
                 print(f"Enter the valid number of turtle from 2 to {len(colors)}: ")
         except ValueError:
             print("Enter a valid number, BITCH!!!!!!")
+
+def check_winnings(colors,bet,winner):
+    if (colors[bet]==winner):
+        print("You won the bet")
+    else:
+         print("You loss")
 
 def turtel_screen():
     screen = t.Screen()
@@ -67,10 +75,10 @@ turtel_screen()
 
 random.shuffle(COLORS)
 colors=COLORS[:racer]
-bet(colors)
 
+your_bet=bet(colors)
 winner=race(colors)
-if (colors[bet]==winner):
-    print("You won the bet")
+check_winnings(colors,your_bet,winner)
+
 print("The winner is: ",winner)
 time.sleep(5)
