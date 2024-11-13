@@ -1,5 +1,5 @@
 from cryptography.fernet import Fernet
-import pass_genarator
+
 
 # def write_key():
 #     key = Fernet.generate_key()
@@ -17,6 +17,8 @@ fer = Fernet(key)
 
 def add():
   name=input("Enter your username: ")
+  # implementing auto pass genarator with encryptor
+  import pass_genarator
   pwd = pass_genarator.pass_gen(10)
   with open("passwords.txt", "a") as f:
       f.write(name + "|" + fer.encrypt(pwd.encode()).decode() + "\n")
@@ -63,5 +65,7 @@ while True:
             view()
           else:
             print("Invalid choice. Please try again.")
+        if choice == "quit":
+            break   
     else:
       print("Wrong password")
