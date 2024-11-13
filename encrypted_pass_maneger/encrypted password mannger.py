@@ -1,4 +1,5 @@
 from cryptography.fernet import Fernet
+import pass_genarator
 
 # def write_key():
 #     key = Fernet.generate_key()
@@ -16,7 +17,7 @@ fer = Fernet(key)
 
 def add():
   name=input("Enter your username: ")
-  pwd = input("Enter your password: ")
+  pwd = pass_genarator.pass_gen(10)
   with open("passwords.txt", "a") as f:
       f.write(name + "|" + fer.encrypt(pwd.encode()).decode() + "\n")
 
@@ -49,17 +50,18 @@ def mastview():
       decrypted_pwd = fer.decrypt(data.encode()).decode()
       return decrypted_pwd
 
-if master_pwd == mastview():
-    print("true")
-    while True:
-      choice = input("Enter your choice You want to view or add pass or quit: ").lower()
-      if choice == "quit":
-        break
-      if choice== "add":
-        add()  
-      elif choice == "view":
-        view()
-      else:
-        print("Invalid choice. Please try again.")
-else:
-  print("Wrong password")
+while True:
+    if master_pwd == mastview():
+        print("true")
+        while True:
+          choice = input("Enter your choice You want to view or add pass or quit: ").lower()
+          if choice == "quit":
+            break
+          if choice== "add":
+            add()  
+          elif choice == "view":
+            view()
+          else:
+            print("Invalid choice. Please try again.")
+    else:
+      print("Wrong password")
