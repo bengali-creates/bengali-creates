@@ -1,5 +1,15 @@
 # 💫 About Me:
-🔭 I’m currently working on JARVIS asisttance system<br>🤝 I’m looking for help with api and backend<br>🌱 I’m currently learning react js<br>💬 Ask me about web development and python<br>⚡ Fun fact logic not logicing
+
+👋 Hi, I'm **Debasish**! I'm a developer focused on building scalable AI solutions and mastering the modern tech stack. Currently, I'm gaining professional experience as an intern, contributing to real-world production code and automation platforms.
+
+* 💼 **Current Role:** **AI Full Stack Intern** at [**YOUSE AI**](https://www.linkedin.com/company/youseai/)
+    * *Impact:* Architecting and optimizing RESTful APIs to streamline data flow for an automation platform featuring **Meta API integration**.
+* 🚀 **Main Focus:** Developing [**GOALREACHER**](https://github.com/bengali-creates), an end-to-end career platform that provides market insights, resume building, and AI-driven interview preparation.
+* 🌱 **Learning Path:** Currently mastering **React.js** to build more dynamic and intuitive user experiences.
+* 💬 **Ask Me About:** Python, Web Development, or why my logic is (occasionally) not logicing.
+* 🛠️ **Side Quest:** Tinkering with a JARVIS-style automation system.
+
+---
 
 
 ## 🌐 Socials:
